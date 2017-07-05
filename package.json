@@ -4,7 +4,8 @@
   "demo": "https://demo.ghost.io",
   "version": "2.0.0",
   "scripts": {
-    "migrate": "knex-migrator init",
+    "setup": "mkdir dist && npm run knex:init",
+    "knex:init": "knex-migrator init",
     "start": "node ./fuse.js"
   },
   "engines": {
@@ -39,16 +40,12 @@
   "contributors": "https://github.com/TryGhost/Casper/graphs/contributors",
   "devDependencies": {
     "@types/jquery": "^3.2.5",
-    "browser-sync": "^2.18.12",
     "cssnano": "3.7.1",
-    "del": "^3.0.0",
+    "express": "^4.15.3",
     "fuse-box": "^2.2.0",
     "ghost": "^1.0.0-beta.2",
     "knex-migrator": "^2.0.16",
     "node-sass": "^4.5.3",
-    "postcss-color-function": "2.0.1",
-    "postcss-custom-properties": "5.0.1",
-    "postcss-easy-import": "1.0.1",
     "typescript": "^2.4.1"
   },
   "dependencies": {
