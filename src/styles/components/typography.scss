@@ -1,0 +1,118 @@
+dt {
+  float: left;
+  margin: 0 20px 0 0;
+  width: 120px;
+  color: var(--darkgrey);
+  font-weight: 500;
+  text-align: right;
+}
+
+dd {
+  margin: 0 0 5px 0;
+  text-align: left;
+}
+
+blockquote {
+  margin: 1.5em 0;
+  padding: 0 1.6em 0 1.6em;
+  border-left: var(--whitegrey) 0.5em solid;;
+
+  p {
+    margin: 0.8em 0;
+    font-size: 1.2em;
+    font-weight: 300;
+  }
+
+  small {
+    display: inline-block;
+    margin: 0.8em 0 0.8em 1.5em;
+    font-size: 0.9em;
+    opacity: 0.8;
+
+    &:before {
+      content: "\2014 \00A0";
+    }
+
+  }
+
+  cite {
+    font-weight: bold;
+
+    a {
+      font-weight: normal;
+    }
+  }
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: "";
+  content: none;
+}
+
+a {
+  color: color(var(--blue) l(-5%));
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  line-height: 1.15;
+  font-weight: 700;
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  margin: 0 0 0.5em 0;
+  font-size: 5rem;
+  font-weight: 700;
+}
+
+h2 {
+  margin: 1.5em 0 0.5em 0;
+  font-size: 2rem;
+}
+
+h3 {
+  margin: 1.5em 0 0.5em 0;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+h4 {
+  margin: 1.5em 0 0.5em 0;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+h5 {
+  margin: 1.5em 0 0.5em 0;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+h6 {
+  margin: 1.5em 0 0.5em 0;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+@media (max-width: 500px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+  h2 {
+    font-size: 1.8rem;
+  }
+  h3 {
+    font-size: 1.7rem;
+  }
+}
