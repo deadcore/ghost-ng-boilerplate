@@ -13,6 +13,7 @@ const GhostBootstrap = require('./ghost-bootstrap');
 
 const outDir = './dist/themes/casper';
 const pages = ['author', 'default', 'error', 'index', 'page', 'post', 'tag'];
+const fs = require('fs');
 
 let fuse, app, vendor, isProduction;
 
@@ -66,11 +67,14 @@ Sparky.task('handlebars', ['handlebars:partials', ...pages.map(x => `handlebars:
 
 Sparky.task('handlebars:partials', () => Sparky.src('partials/**/**.hbs', { base: `./src` }).dest(outDir));
 
-Sparky.task('package', () => Sparky
-    .src('package.json')
-    .file("package.json", file => file.json())
-    .dest(outDir)
-);
+Sparky.task('package', () => {
+
+    const { name, version, author } = require('./package.json');
+
+    const json = JSON.stringify({ name, version, author });
+
+    return fs.writeFile(`${outDir}/package.json`, json);
+});
 
 Sparky.task("default", ["clean", "config", "handlebars", 'package'], () => {
     fuse.dev();
