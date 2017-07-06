@@ -16,8 +16,6 @@ const pages = ['author', 'default', 'error', 'index', 'page', 'post', 'tag'];
 
 let fuse, app, vendor, isProduction;
 
-const footer = (page) => `{{#contentFor "ghostPageScript"}}<script>(function () {window.ghost||(window.ghost={modules:[]}),window.ghost.modules.push('${page}')})();</script>{{/contentFor}}`;
-
 Sparky.task("config", () => {
     fuse = FuseBox.init({
         homeDir: `src/`,
@@ -47,15 +45,11 @@ Sparky.task("config", () => {
         .bundle('vendor')
         .instructions(' ~ **/**.ts');
 
-    app = fuse
+    const splitBundler = (bundler, page) => bundler.split(`pages/${page}/**`, `${page} > pages/${page}/${page}.ts`);
+
+    app = pages.reduce(splitBundler, fuse
         .bundle('app')
-        .splitConfig({ browser: "assets", dest: "./" })
-        .split("pages/index/**", "index > pages/index/index.ts")
-        .split("pages/post/**", "post > pages/post/post.ts")
-        .split("pages/page/**", "page > pages/page/page.ts")
-        .split("pages/tag/**", "tag > pages/tag/tag.ts")
-        .split("pages/default/**", "default > pages/default/default.ts")
-        .split("pages/error/**", "error > pages/error/error.ts")
+        .splitConfig({ browser: "assets", dest: "./" }))
         .instructions(`> [app.ts] + [pages/**/**.ts]`)
 
 });
@@ -63,20 +57,9 @@ Sparky.task("config", () => {
 pages.forEach(page => {
     Sparky.task(`handlebars:${page}`, () => Sparky
         .watch("**/**.hbs", { base: `./src/pages/${page}` })
-        .file("*.hbs", appendFooter)
         .dest(outDir)
     );
 });
-
-const appendFooter = (file) => {
-    // append the footer
-    if (file.name !== 'error.hbs') {
-        file.read();
-        file.setContent(file.contents + footer(file.name.split('.')[0]));
-    }
-    return file;
-};
-
 
 Sparky.task('handlebars', ['handlebars:partials', ...pages.map(x => `handlebars:${x}`)], () => {
 });
