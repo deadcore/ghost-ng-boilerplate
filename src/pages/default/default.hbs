@@ -11,20 +11,16 @@
     <meta name="HandheldFriendly" content="True"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    {{{block "modules"}}}
-
     <script>
         window.ghost || (window.ghost = { modules: [] });
         (function (modules) {
             modules.push('default');
-
             {{#is "author"}} modules.push('author'); {{/is}}
             {{#is "error"}} modules.push('error'); {{/is}}
             {{#is "index"}} modules.push('index'); {{/is}}
             {{#is "page"}} modules.push('page'); {{/is}}
             {{#is "post"}} modules.push('post'); {{/is}}
             {{#is "tag"}} modules.push('tag'); {{/is}}
-
         })(window.ghost.modules)
     </script>
 
