@@ -68,11 +68,20 @@ Sparky.task('handlebars', ['handlebars:partials', ...pages.map(x => `handlebars:
 Sparky.task('handlebars:partials', () => Sparky.src('partials/**/**.hbs', { base: `./src` }).dest(outDir));
 
 Sparky.task('package', () => {
-
-    const { name, version, author } = require('./package.json');
-
-    const json = JSON.stringify({ name, version, author });
-
+    const { name, version, author, config, description, engines, license, gpm, screenshots, demo, homepage } = require('./package.json');
+    const json = JSON.stringify({
+        name,
+        version,
+        author,
+        config,
+        description,
+        engines,
+        license,
+        gpm,
+        screenshots,
+        demo,
+        homepage
+    });
     return fs.writeFile(`${outDir}/package.json`, json);
 });
 
