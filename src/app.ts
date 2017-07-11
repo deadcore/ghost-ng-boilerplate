@@ -1,4 +1,5 @@
 import './compoents/infinite-scroll'
+import './styles/theme.scss'
 
 if (isPage('author')) {
     import('./pages/author/author')

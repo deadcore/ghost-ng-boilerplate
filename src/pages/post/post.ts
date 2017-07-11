@@ -1,16 +1,11 @@
 import './post.scss';
-
 import * as $ from "jquery";
-
-console.log('Welcome to the post ts');
 
 // NOTE: Scroll performance is poor in Safari
 // - this appears to be due to the events firing much more slowly in Safari.
 //   Dropping the scroll event and using only a raf loop results in smoother
 //   scrolling but continuous processing even when not scrolling
 $(document).ready(() => {
-
-    console.log('Inside jquery mmmmm nice');
 
     // Start fitVids
     const $postContent = $(".post-full-content");
