@@ -1,5 +1,33 @@
 import './compoents/infinite-scroll'
 
-// import { lazyLoad } from "fuse-tools";
+if (isPage('author')) {
+    import('./pages/author/author')
+}
 
-window.ghost.modules.forEach(module => import(module));
+if (isPage('default')) {
+    import('./pages/default/default')
+}
+
+if (isPage('error')) {
+    import('./pages/error/error')
+}
+
+if (isPage('index')) {
+    import('./pages/index/index')
+}
+
+if (isPage('page')) {
+    import('./pages/page/page')
+}
+
+if (isPage('post')) {
+    import('./pages/post/post')
+}
+
+if (isPage('tag')) {
+    import('./pages/tag/tag')
+}
+
+function isPage(target: string) {
+    return window.ghost.modules.indexOf(target) >= 0
+}

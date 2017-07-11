@@ -6,7 +6,9 @@ const {
     JSONPlugin,
     HTMLPlugin,
     Sparky,
-    QuantumPlugin
+    QuantumPlugin,
+    RawPlugin,
+    TypeScriptHelpers
 } = require('fuse-box');
 
 const GhostBootstrap = require('./ghost-bootstrap');
@@ -22,36 +24,27 @@ Sparky.task("config", () => {
         homeDir: `src/`,
         output: `${outDir}/assets/$name.js`,
         sourceMaps: !isProduction,
-        hash: isProduction,
-        target: "browser",
-        experimentalFeatures: true,
+        target: 'browser',
+        debug: true,
         cache: !isProduction,
         plugins: [
-            ["*.scss", SassPlugin(), CSSPlugin()],
+            ['*.scss', SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' }), CSSPlugin()],
             isProduction && QuantumPlugin({
-                treeshake: true,
-                removeExportsInterop: false,
+                target: 'browser',
+                bakeApiIntoBundle : 'vendor',
+                treeshake : true,
+                ensureES5 : true,
                 uglify: true
             })
-        ],
-        shim: {
-            jquery: {
-                source: "node_modules/jquery/dist/jquery.js",
-                exports: "$"
-            },
-        }
+        ]
     });
 
     vendor = fuse
         .bundle('vendor')
         .instructions(' ~ **/**.ts');
 
-    const splitBundler = (bundler, page) => bundler.split(`pages/${page}/**`, `${page} > pages/${page}/${page}.ts`);
-
-    app = pages.reduce(splitBundler, fuse
-        .bundle('app')
-        .splitConfig({ browser: "assets", dest: "./" }))
-        .instructions(`> [app.ts] + [pages/**/**.ts]`)
+    app = fuse.bundle('app')
+        .instructions(`> [app.ts]`);
 
 });
 
